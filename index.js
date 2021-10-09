@@ -39,6 +39,7 @@ app.get('/aws-sdk/', (req, res) => {
 });
 
 app.get('/http-request/', (req, res) => {
+  console.log('A request was received');
   const endpoint = 'https://amazon.com/';
   https.get(endpoint, (response) => {
     response.on('data', () => {});
