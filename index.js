@@ -40,7 +40,10 @@ app.get('/aws-sdk/', (req, res) => {
 });
 
 app.get('/logger/', (req, res) => {
-  fs.writeFile('/opt/sampleapp/logs.txt', 'This is a log file');
+  fs.writeFile('/opt/sampleapp/logs.txt', 'This is a log file', function (err) {
+  if (err) return console.log(err);
+  console.log('Hello World > helloworld.txt');
+  });
   res.send(`you clicked a button.`);
 });
 
