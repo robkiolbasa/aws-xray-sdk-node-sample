@@ -41,6 +41,7 @@ app.get('/aws-sdk/', (req, res) => {
 
 app.get('/logger/', (req, res) => {
   console.log('This is a log entry > logs.txt');
+  res.send(`you clicked a button.`);
 });
 
 app.get('/http-request/', (req, res) => {
