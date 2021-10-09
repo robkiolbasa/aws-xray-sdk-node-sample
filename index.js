@@ -1,6 +1,7 @@
 const AWSXRay = require('aws-xray-sdk');
 const XRayExpress = AWSXRay.express;
 const express = require('express');
+const fs = require('fs');
 
 // Capture all AWS clients we create
 const AWS = AWSXRay.captureAWS(require('aws-sdk'));
@@ -38,8 +39,11 @@ app.get('/aws-sdk/', (req, res) => {
   });
 });
 
+app.get('/logger/', (req, res) => {
+  console.log('This is a log entry > logs.txt');
+});
+
 app.get('/http-request/', (req, res) => {
-  console.log('A request was received');
   const endpoint = 'https://amazon.com/';
   https.get(endpoint, (response) => {
     response.on('data', () => {});
