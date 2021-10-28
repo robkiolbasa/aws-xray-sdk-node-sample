@@ -17,6 +17,31 @@ const mysql = AWSXRay.captureMySQL(require('mysql'));
 const app = express();
 const port = 3000;
 
+function random_item(items)
+{ 
+return items[Math.floor(Math.random()*items.length)];     
+}
+
+async function random_log()
+{ 
+var actions = ['POST', 'GET', 'PUT', 'DELETE', 'PATCH'];
+var path = ['/addtocart', '/viewcart', '/checkout', '/viewitem', '/taco'];
+  for(var start = 1; start < 100; start++) {
+	  var timestamp = Date.now ();
+	  act = random_item(actions);
+	  pth = random_item(path);
+	  var log = timestamp+'	'+act+'	'+pth;
+	  fs.appendFile('/opt/sampleapp/application.log', log+ '\n', function (err) {
+	  if (err) return console.log(err);
+	  console.log('Hello World > helloworld.txt');
+	  });
+
+  };
+    
+}
+
+
+
 app.use(XRayExpress.openSegment('SampleSite'));
 
 app.get('/', (req, res) => {
@@ -40,12 +65,23 @@ app.get('/aws-sdk/', (req, res) => {
 });
 
 app.get('/logger/', (req, res) => {
-  fs.writeFile('/opt/sampleapp/logs.txt', 'This is a log file', function (err) {
-  if (err) return console.log(err);
-  console.log('Hello World > helloworld.txt');
-  });
-  res.send(`you clicked a button.`);
-});
+  for(var start = 1; start < 100; start++) {
+	  var timestamp = Date.now ();
+	  random_log()
+	  var log = timestamp+'	'+logitem;
+	  fs.appendFile('/opt/sampleapp/application.log', log+ '\n', function (err) {
+	  if (err) return console.log(err);
+	  console.log('Hello World > helloworld.txt');
+	  });
+	res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  };
+}); 
+
+app.get('/test/', (req, res) => {
+  random_log();
+  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  }); 
+  
 
 app.get('/http-request/', (req, res) => {
   const endpoint = 'https://amazon.com/';
@@ -87,3 +123,4 @@ app.get('/mysql/', (req, res) => {
 app.use(XRayExpress.closeSegment());
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+
