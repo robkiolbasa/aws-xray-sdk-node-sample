@@ -70,23 +70,18 @@ app.get('/aws-sdk/', (req, res) => {
 });
 
 app.get('/logger/', (req, res) => {
-  for(var start = 1; start < 100; start++) {
-	  var timestamp = Date.now ();
-	  random_log()
-	  var log = timestamp+'	'+logitem;
-	  fs.appendFile('/opt/sampleapp/application.log', log+ '\n', function (err) {
-	  if (err) return console.log(err);
-	  console.log('Hello World > helloworld.txt');
-	  });
-	res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
-  };
-}); 
+  random_log();
+  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  }); 
 
 app.get('/test/', (req, res) => {
   random_log();
   res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
   }); 
   
+app.get('/hcheck/', (req, res) => {
+  res.send(`The site is UP!`);  
+  }); 
 
 app.get('/http-request/', (req, res) => {
   const endpoint = 'https://amazon.com/';
