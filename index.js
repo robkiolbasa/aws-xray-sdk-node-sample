@@ -97,7 +97,7 @@ app.get('/logger/', (req, res) => {
 
 app.get('/errorlogs/', (req, res) => {
   errorlog();
-  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  res.send(`100 log entries generated, click <a href="/errorlogs/">here</a> to generate more`);  
   });
 
 app.get('/test/', (req, res) => {
