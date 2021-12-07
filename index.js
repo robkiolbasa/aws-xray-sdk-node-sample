@@ -45,7 +45,28 @@ var browserlist = ['Chrome v7.0', 'Chrome v7.1', 'Chrome v7.2', 'Chrome v7.1', '
     
 }
 
+async function errorlog()
+{ 
+var uidlist = ['joe.user@gmail.com', 'mike.user@yahoo.com', 'susan.user@amazon.com', 'debbie.user@aol.com', 'tim.user@gmail.com'];
+var iplist = ['10.0.0.165', '10.5.23.124', '10.30.86.98', '192.168.0.43', '192.168.3.4'];
+var sevlist = ['INFO', 'WARN', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'ERROR', 'WARN', 'ERROR', 'ERROR'];
+var browserlist = ['Chrome v7.0', 'Chrome v7.1', 'Chrome v7.2', 'Chrome v7.1', 'Chrome v7.1', 'Chrome v7.2', 'Firefox v10', 'Firefox v10', 'Firefox v10', 'Firefox v11', 'Firefox v11','Microsoft Edge','Microsoft Edge','Microsoft Edge'];
+  for(var start = 1; start < 100; start++) {
+	  var timestamp = Date.now ();
+	  var date = new Date(timestamp).toISOString();
+	  sev = random_item(sevlist);
+	  browser = random_item(browserlist);
+	  uid = random_item(uidlist);
+	  ip = random_item(iplist);
+	  var log = '{"Severity": "'+sev+'", "message": "This is where the message detail would go", "IP Address": "'+ip+'", "Timestamp": "'+date+'", "Browser": "'+browser+'","User ID": "'+uid+'"}';
+	  //var log = date+'	'+act+'	'+pth;
+	  fs.appendFile('/opt/sampleapp/application.log', log+ '\n', function (err) {
+	  if (err) return console.log(err);
+	  });
 
+  };
+    
+}
 
 app.use(XRayExpress.openSegment('SampleSite'));
 
@@ -73,6 +94,11 @@ app.get('/logger/', (req, res) => {
   random_log();
   res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
   }); 
+
+app.get('/errorlogs/', (req, res) => {
+  errorlog();
+  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  });
 
 app.get('/test/', (req, res) => {
   random_log();
