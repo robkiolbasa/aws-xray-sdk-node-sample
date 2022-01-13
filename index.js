@@ -17,6 +17,10 @@ const mysql = AWSXRay.captureMySQL(require('mysql'));
 const app = express();
 const port = 3000;
 
+var metadata = require('node-ec2-metadata');
+
+const ec2id = metadata.getMetadataForInstance('instance-id');
+
 function random_item(items)
 { 
 return items[Math.floor(Math.random()*items.length)];     
@@ -35,7 +39,7 @@ var browserlist = ['Chrome v7.0', 'Chrome v7.1', 'Chrome v7.2', 'Chrome v7.1', '
 	  browser = random_item(browserlist);
 	  uid = random_item(uidlist);
 	  ip = random_item(iplist);
-	  var log = '{"Severity": "'+sev+'", "message": "This is where the message detail would go", "IP Address": "'+ip+'", "Timestamp": "'+date+'", "Browser": "'+browser+'","User ID": "'+uid+'"}';
+	  var log = '{"Severity": "'+sev+'", "message": "This is where the message detail would go", "IP Address": "'+ip+'", "Timestamp": "'+date+'", "Browser": "'+browser+'","User ID": "'+uid+'","Instance ID": "'+ec2id+'"}';
 	  //var log = date+'	'+act+'	'+pth;
 	  fs.appendFile('/opt/sampleapp/application.log', log+ '\n', function (err) {
 	  if (err) return console.log(err);
