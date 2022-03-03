@@ -88,26 +88,22 @@ app.get('/aws-sdk/', (req, res) => {
   const ddbPromise = ddb.listTables().promise();
 
   ddbPromise.then(function(data) {
-    res.send(`ListTables result:\n ${JSON.stringify(data)}`);
+    res.send(`ListTables result:\n ${JSON.stringify(data)}<br>Click <a href="/">here</a> to return to the home page.`);
   }).catch(function(err) {
-    res.send(`Encountered error while calling ListTables: ${err}`);
+    res.send(`Encountered error while calling ListTables: ${err}<br>Click <a href="/">here</a> to return to the home page.`);
   });
 });
 
 app.get('/logger/', (req, res) => {
   random_log();
-  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
+  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more. <br>Click <a href="/">here</a> to return to the home page.`);  
   }); 
 
 app.get('/errorlogs/', (req, res) => {
   errorlog();
-  res.send(`100 log entries generated, click <a href="/errorlogs/">here</a> to generate more`);  
+  res.send(`100 log entries generated, click <a href="/errorlogs/">here</a> to generate more.<br>Click <a href="/">here</a> to return to the home page.`);  
   });
 
-app.get('/test/', (req, res) => {
-  random_log();
-  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more`);  
-  }); 
   
 app.get('/hcheck/', (req, res) => {
   res.send(`The site is UP!`);  
@@ -119,11 +115,11 @@ app.get('/http-request/', (req, res) => {
     response.on('data', () => {});
 
     response.on('error', (err) => {
-      res.send(`Encountered error while making HTTPS request: ${err}`);
+      res.send(`Encountered error while making HTTPS request: ${err}<br>Click <a href="/">here</a> to return to the home page.`);
     });
 
     response.on('end', () => {
-      res.send(`Successfully reached ${endpoint}.`);
+      res.send(`Successfully reached ${endpoint}.<br>Click <a href="/">here</a> to return to the home page.`);
     });
   });
 });
@@ -141,10 +137,10 @@ app.get('/mysql/', (req, res) => {
   const connection = mysql.createConnection(config);
   connection.query(`SELECT * FROM ${table}`, (err, results, fields) => {
     if (err) {
-      res.send(`Encountered error while querying ${table}: ${err}`);
+      res.send(`Encountered error while querying ${table}: ${err}<br>Click <a href="/">here</a> to return to the home page.`);
       return;
     }
-    res.send(`Retrieved the following results from ${table}:\n${results}`);
+    res.send(`Retrieved the following results from ${table}:\n${results}<br>Click <a href="/">here</a> to return to the home page.`);
   });
 
   connection.end();
