@@ -5,7 +5,7 @@ const fs = require('fs');
 
 // Capture all AWS clients we create
 const AWS = AWSXRay.captureAWS(require('aws-sdk'));
-AWS.config.update({region: process.env.DEFAULT_AWS_REGION || 'us-west-2'});
+AWS.config.update({region: process.env.DEFAULT_AWS_REGION || 'us-east-1'});
 
 // Capture all outgoing https requests
 AWSXRay.captureHTTPsGlobal(require('https'));
