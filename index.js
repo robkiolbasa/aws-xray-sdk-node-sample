@@ -96,7 +96,7 @@ app.get('/aws-sdk/', (req, res) => {
 
 app.get('/logger/', (req, res) => {
   random_log();
-  res.send(`100 log entries generated, click <a href="/test/">here</a> to generate more. <br>Click <a href="/">here</a> to return to the home page.`);  
+  res.send(`100 log entries generated, click <a href="/logger/">here</a> to generate more. <br>Click <a href="/">here</a> to return to the home page.`);  
   }); 
 
 app.get('/errorlogs/', (req, res) => {
